@@ -4,6 +4,7 @@
 
 #define ST_NBLOCKSIZE 4096
 
+// todo: 如何区分空洞和故意写入的\0
 int main(int argc, char* argv[]) {
     int inputFd, outputFd, openFlags;
     mode_t filePerms;
