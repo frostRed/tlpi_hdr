@@ -31,7 +31,7 @@ target("tlpi_hdr")
     -- add files
     add_files("src/lib/error_functions.c")
     add_files("src/lib/get_num.c")
-    add_files("src/lib/users_groups_ugid_functions.c")
+    add_files("src/lib/ugid_functions.c")
 
 -- define target
 target("fileio_seek_io")
@@ -330,6 +330,18 @@ target("7-4-1-memalloc_free_and_sbrk")
 
     -- add files
     add_files("src/exercises/7-4-1-memalloc_free_and_sbrk.c")
+
+    -- add deps
+    add_deps("tlpi_hdr")
+
+-- define target
+target("idshow")
+
+    -- set kind
+    set_kind("binary")
+
+    -- add files
+    add_files("src/proccred/idshow.c")
 
     -- add deps
     add_deps("tlpi_hdr")
