@@ -1,9 +1,10 @@
 #define _FILE_OFFSET_BITS 64
-include <sys/stat.h>
-#include <fcntl.h>
 #include "tlpi_hdr.h"
+#include <fcntl.h>
+#include <sys/stat.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     int fd;
     off_t off;
     if (argc != 3 || strcmp(argv[1], "--help") == 0) {
