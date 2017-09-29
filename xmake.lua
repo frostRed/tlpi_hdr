@@ -178,3 +178,8 @@ target("show_time")
     set_kind("binary")
     add_files("src/time/show_time.c")
     add_deps("tlpi_hdr")
+
+target("process_time")
+    set_kind("binary")
+    add_files("src/time/process_time.c")
+    add_deps("tlpi_hdr")
