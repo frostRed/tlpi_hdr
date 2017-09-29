@@ -1,3 +1,5 @@
+// sudo chown root proc
+// sudo chmod u+s proc
 #define _GNU_SOURCE
 
 #include <unistd.h>
