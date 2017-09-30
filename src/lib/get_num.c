@@ -1,3 +1,19 @@
+/*************************************************************************\
+*                  Copyright (C) Michael Kerrisk, 2017.                   *
+*                                                                         *
+* This program is free software. You may use, modify, and redistribute it *
+* under the terms of the GNU Lesser General Public License as published   *
+* by the Free Software Foundation, either version 3 or (at your option)   *
+* any later version. This program is distributed without any warranty.    *
+* See the files COPYING.lgpl-v3 and COPYING.gpl-v3 for details.           *
+\*************************************************************************/
+
+/* Listing 3-6 */
+
+/* get_num.c
+
+   Functions to process numeric command-line arguments.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,7 +21,13 @@
 #include <errno.h>
 #include "get_num.h"
 
-static void gnFail(const char *fname, const char *msg, const char *arg, const char *name) {
+/* Print a diagnostic message that contains a function name ('fname'),
+   the value of a command-line argument ('arg'), the name of that
+   command-line argument ('name'), and a diagnostic error message ('msg'). */
+
+static void
+gnFail(const char *fname, const char *msg, const char *arg, const char *name)
+{
     fprintf(stderr, "%s error", fname);
     if (name != NULL)
         fprintf(stderr, " (in %s)", name);
@@ -16,7 +38,18 @@ static void gnFail(const char *fname, const char *msg, const char *arg, const ch
     exit(EXIT_FAILURE);
 }
 
-static long getNum(const char *fname, const char *arg, int flags, const char *name) {
+/* Convert a numeric command-line argument ('arg') into a long integer,
+   returned as the function result. 'flags' is a bit mask of flags controlling
+   how the conversion is done and what diagnostic checks are performed on the
+   numeric result; see get_num.h for details.
+
+   'fname' is the name of our caller, and 'name' is the name associated with
+   the command-line argument 'arg'. 'fname' and 'name' are used to print a
+   diagnostic message in case an error is detected when processing 'arg'. */
+
+static long
+getNum(const char *fname, const char *arg, int flags, const char *name)
+{
     long res;
     char *endptr;
     int base;
@@ -44,11 +77,21 @@ static long getNum(const char *fname, const char *arg, int flags, const char *na
     return res;
 }
 
-long getLong(const char *arg, int flags, const char *name) {
+/* Convert a numeric command-line argument string to a long integer. See the
+   comments for getNum() for a description of the arguments to this function. */
+
+long
+getLong(const char *arg, int flags, const char *name)
+{
     return getNum("getLong", arg, flags, name);
 }
 
-int getInt(const char *arg, int flags, const char *name) {
+/* Convert a numeric command-line argument string to an integer. See the
+   comments for getNum() for a description of the arguments to this function. */
+
+int
+getInt(const char *arg, int flags, const char *name)
+{
     long res;
 
     res = getNum("getInt", arg, flags, name);

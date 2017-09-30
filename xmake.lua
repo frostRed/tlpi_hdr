@@ -158,8 +158,6 @@ target("idshow")
     add_deps("tlpi_hdr")
 
 target("9-9-3-my_initgroups")
---target("debug")
---    add_cflags("-g");
     set_kind("binary")
     add_files("src/exercises/9-9-3-my_initgroups.c")
     add_deps("tlpi_hdr")
@@ -182,4 +180,41 @@ target("show_time")
 target("process_time")
     set_kind("binary")
     add_files("src/time/process_time.c")
+    add_deps("tlpi_hdr")
+
+target("t_sysconf")
+    set_kind("binary")
+    add_files("src/syslim/t_sysconf.c")
+    add_deps("tlpi_hdr")
+
+target("t_fpathconf")
+    set_kind("binary")
+    add_files("src/syslim/t_fpathconf.c")
+    add_deps("tlpi_hdr")
+
+target("procfs_pidmax")
+    set_kind("binary")
+    add_files("src/sysinfo/procfs_pidmax.c")
+    add_deps("tlpi_hdr")
+
+target("t_uname")
+    set_kind("binary")
+    add_files("src/sysinfo/t_uname.c")
+    add_deps("tlpi_hdr")
+
+target("direct_read")
+    set_kind("binary")
+    add_files("src/filebuff/direct_read.c")
+    add_deps("tlpi_hdr")
+
+target("13-9-4-printf_write")
+    set_kind("binary")
+    add_files("src/exercises/13-9-4-printf_write.c")
+    add_deps("tlpi_hdr")
+
+target("13-9-5-my_tail")
+--target("debug")
+    add_cflags("-g");
+    set_kind("binary")
+    add_files("src/exercises/13-9-5-my_tail.c")
     add_deps("tlpi_hdr")
