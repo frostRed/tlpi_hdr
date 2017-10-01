@@ -1,3 +1,6 @@
+--target("debug")
+--    add_cflags("-g");
+
 -- the debug mode
 if is_mode("debug") then
     -- enable the debug symbols
@@ -25,6 +28,7 @@ target("tlpi_hdr")
     add_files("src/lib/error_functions.c")
     add_files("src/lib/get_num.c")
     add_files("src/lib/ugid_functions.c")
+    add_files("src/lib/file_perms.c")
 
 target("fileio_seek_io")
     set_kind("binary")
@@ -213,8 +217,21 @@ target("13-9-4-printf_write")
     add_deps("tlpi_hdr")
 
 target("13-9-5-my_tail")
---target("debug")
-    add_cflags("-g");
     set_kind("binary")
     add_files("src/exercises/13-9-5-my_tail.c")
+    add_deps("tlpi_hdr")
+
+target("t_mount")
+    set_kind("binary")
+    add_files("src/filesys/t_mount.c")
+    add_deps("tlpi_hdr")
+
+target("t_stat")
+    set_kind("binary")
+    add_files("src/files/t_stat.c")
+    add_deps("tlpi_hdr")
+
+target("t_chown")
+    set_kind("binary")
+    add_files("src/files/t_chown.c")
     add_deps("tlpi_hdr")
