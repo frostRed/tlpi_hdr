@@ -235,3 +235,13 @@ target("t_chown")
     set_kind("binary")
     add_files("src/files/t_chown.c")
     add_deps("tlpi_hdr")
+
+target("t_umask")
+    set_kind("binary")
+    add_files("src/files/t_umask.c")
+    add_deps("tlpi_hdr")
+
+target("15-7-3-nano-sec-time")
+    set_kind("binary")
+    add_files("src/exercises/15-7-3-nano-sec-time.c")
+    add_deps("tlpi_hdr")
