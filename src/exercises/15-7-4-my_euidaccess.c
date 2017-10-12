@@ -38,7 +38,7 @@ int my_euidaccess(const char* pathname, int mode) {
     gid_t proc_egid = getegid();
 
     if (file_uid == proc_egid) {
-        int perm = 0;
+        mode_t perm = 0;
         switch (mode) {
             case 1: perm = S_IXUSR; break;
             case 2: perm = S_IWUSR; break;

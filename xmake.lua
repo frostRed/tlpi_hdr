@@ -250,3 +250,18 @@ target("15-7-4-my_euidaccess")
     set_kind("binary")
     add_files("src/exercises/15-7-4-my_euidaccess.c")
     add_deps("tlpi_hdr")
+
+target("15-7-6-my_chmod_a_rX")
+    set_kind("binary")
+    add_files("src/exercises/15-7-6-my_chmod_a_rX.c")
+    add_deps("tlpi_hdr")
+
+target("15-7-7-my_chattr")
+    set_kind("binary")
+    add_files("src/exercises/15-7-7-my_chattr.c")
+    add_deps("tlpi_hdr")
+
+target("xattr_view")
+    set_kind("binary")
+    add_files("src/xattr/xattr_view.c")
+    add_deps("tlpi_hdr")
