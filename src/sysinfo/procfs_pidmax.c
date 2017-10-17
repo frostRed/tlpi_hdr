@@ -6,13 +6,13 @@
 int main(int argc, char* argv[]) {
     int fd = open("/proc/sys/kernel/pid_max", (argc > 1) ? O_RDWR : O_RDONLY);
     if (fd == -1) {
-        errExit("open");
+        err_exit("open");
     }
 
     char line[MAX_LINE];
     ssize_t n = read(fd, line, MAX_LINE);
     if (n == -1) {
-        errExit("read");
+        err_exit("read");
     }
 
     if (argc > 1) {

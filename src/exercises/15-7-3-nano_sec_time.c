@@ -20,7 +20,7 @@ static void displayStatInfo(const struct stat* sb) {
 
     printf("Device containing i-node: major=%ld minor=%ld\n", (long) major(sb->st_dev), (long) minor(sb->st_dev));
     printf("I-node number:  %ld\n", (long) sb->st_ino);
-    printf("Mode:   %lo (%s)\n", (unsigned long) sb->st_mode, filePermStr(sb->st_mode, 0));
+    printf("Mode:   %lo (%s)\n", (unsigned long) sb->st_mode, file_perm_str(sb->st_mode, 0));
 
     if (sb->st_mode & (S_ISUID | S_ISGID | S_ISVTX)) {
         printf("    special bits set:   %s%s%s\n", (sb->st_mode & S_ISUID) ? "set-UID" : "",
@@ -44,21 +44,21 @@ static void displayStatInfo(const struct stat* sb) {
     nowtm = localtime(&sb->st_atime);
     size_t num = strftime(tmbuf, sizeof tmbuf, "%a %b %d %X %Y", nowtm);
     if (num == 0) {
-        errExit("strftime");
+        err_exit("strftime");
     } 
     printf("Last file access:   %s.%.9ld\n", tmbuf, sb->st_atim.tv_nsec);
 
     nowtm = localtime(&sb->st_mtime);
     num = strftime(tmbuf, sizeof tmbuf, "%a %b %d %X %Y", nowtm);
     if (num == 0) {
-        errExit("strftime");
+        err_exit("strftime");
     } 
     printf("Last file modification:   %s.%.9ld\n", tmbuf, sb->st_mtim.tv_nsec);
 
     nowtm = localtime(&sb->st_ctime);
     num = strftime(tmbuf, sizeof tmbuf, "%a %b %d %X %Y", nowtm);
     if (num == 0) {
-        errExit("strftime");
+        err_exit("strftime");
     } 
     printf("Last status change:   %s.%.9ld\n", tmbuf, sb->st_ctim.tv_nsec);
 }
@@ -67,18 +67,18 @@ int main(int argc, char* argv[]) {
     Boolean statLink = (argc > 1) && strcmp(argv[1], "-l") == 0;
     int fname = statLink ? 2 : 1;
     if (fname >= argc || (argc > 1 && strcmp(argv[1], "--help") == 0)) {
-        usageErr("%s [-l] file\n" " -l = use lstat() instead of stat()\n", argv[0]);
+        usage_err("%s [-l] file\n" " -l = use lstat() instead of stat()\n", argv[0]);
     }
 
     struct stat sb;
     if (statLink) {
         if (lstat(argv[fname], &sb) == -1) {
-            errExit("lstat");
+            err_exit("lstat");
         }
     }
     else {
         if (stat(argv[fname], &sb) == -1) {
-            errExit("stat");
+            err_exit("stat");
         }
     }
     displayStatInfo(&sb);

@@ -6,18 +6,18 @@
 
 // todo: 如何区分空洞和故意写入的\0
 int main(int argc, char* argv[]) {
-    int inputFd, outputFd, openFlags;
-    mode_t filePerms;
-    ssize_t numRead;
+    int input_fd, output_fd, open_flags;
+    mode_t file_perms;
+    ssize_t num_read;
     char buf[ST_NBLOCKSIZE];
 
     if (argc != 3 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s old-file new-file\n", argv[0]);
+        usage_err("%s old-file new-file\n", argv[0]);
     }
 
     struct stat statbuff;  
     if(stat(argv[1], &statbuff) < 0){  
-        errExit("stat");
+        err_exit("stat");
     }
     Boolean has_hole = FALSE;
     if (S_ISREG (statbuff.st_mode) &&
@@ -25,40 +25,40 @@ int main(int argc, char* argv[]) {
                has_hole = TRUE;
     }
 
-    inputFd = open(argv[1], O_RDONLY);
-    if (inputFd == -1) {
-        errExit("opening file %s", argv[1]);
+    input_fd = open(argv[1], O_RDONLY);
+    if (input_fd == -1) {
+        err_exit("opening file %s", argv[1]);
     }
 
-    openFlags = O_CREAT | O_WRONLY | O_TRUNC;
+    open_flags = O_CREAT | O_WRONLY | O_TRUNC;
     // rw-rw-rw，分别为用户、群组、其他人
-    filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
+    file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
                 S_IROTH | S_IWOTH;
 
-    outputFd = open(argv[2], openFlags, filePerms);
-    if (outputFd == -1) {
-        errExit("opening file %s", argv[2]);
+    output_fd = open(argv[2], open_flags, file_perms);
+    if (output_fd == -1) {
+        err_exit("opening file %s", argv[2]);
     }
 
     char zero[ST_NBLOCKSIZE] = {0};
-    while ((numRead = read(inputFd, buf, ST_NBLOCKSIZE)) > 0) {
+    while ((num_read = read(input_fd, buf, ST_NBLOCKSIZE)) > 0) {
         // 若全是 0，则认为这一次读到的全是洞，那就只需 lseek，不用写数据
-        if (has_hole && memcmp(buf, zero, numRead) == 0) {
-            lseek(outputFd, numRead, SEEK_CUR);
+        if (has_hole && memcmp(buf, zero, num_read) == 0) {
+            lseek(output_fd, num_read, SEEK_CUR);
         }
-        else if (write(outputFd, buf, numRead) != numRead) {
+        else if (write(output_fd, buf, num_read) != num_read) {
             fatal("couldn't write whole buffer");
         }
     }
-    if (numRead == -1) {
-        errExit("read");
+    if (num_read == -1) {
+        err_exit("read");
     }
 
-    if (close(inputFd) == -1) {
-        errExit("close input");
+    if (close(input_fd) == -1) {
+        err_exit("close input");
     }
-    if (close(outputFd) == -1) {
-        errExit("close output");
+    if (close(output_fd) == -1) {
+        err_exit("close output");
     }
     exit(EXIT_SUCCESS);
 }

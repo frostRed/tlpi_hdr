@@ -1,9 +1,9 @@
 #include <sys/types.h>
 
-char* userNameFromId(uid_t uid);
+char* user_name_from_id(uid_t uid);
 
-uid_t userIdFromName(const char* name);
+uid_t user_id_from_name(const char* name);
 
-char* groupNameFromId(gid_t gid);
+char* group_name_from_id(gid_t gid);
 
-gid_t groupIdFromName(const char* name);
+gid_t group_id_from_name(const char* name);

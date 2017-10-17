@@ -7,12 +7,12 @@
 int main(int argc, char* argv[])
 {
     if (argc != 2 || strcmp(argv[1], "--hlep") == 0) {
-        usageErr("%s pathname\n", argv[0]);
+        usage_err("%s pathname\n", argv[0]);
     }
 
     struct stat stat_buf;
     if (lstat(argv[1], &stat_buf) == -1) {
-        errExit("lstat");
+        err_exit("lstat");
     }
     if (!S_ISLNK(stat_buf.st_mode)) {
         fatal("%s is not symbolic link", argv[1]);
@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     char buf[BUF_SIZE];
     ssize_t num_bytes = readlink(argv[1], buf, BUF_SIZE - 1);
     if (num_bytes == -1) {
-        errExit("readlink");
+        err_exit("readlink");
     }
     buf[num_bytes] = '\0';
     printf("readlink: %s --> %s\n", argv[1], buf);
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     // todo: `ln -s README ./build/readme`
     // `./build/view_symlink ./build/readme` realpath 会报错
     if (realpath(argv[1], buf) == NULL) {
-        errExit("realpath");
+        err_exit("realpath");
     }
     printf("realpath: %s -->  %s\n", argv[1], buf);
 

@@ -21,7 +21,7 @@
 #define STR_SIZE sizeof("rwxrwxrwx")
 
 char *          /* Return ls(1)-style string for file permissions mask */
-filePermStr(mode_t perm, int flags)
+file_perm_str(mode_t perm, int flags)
 {
     static char str[STR_SIZE];
 

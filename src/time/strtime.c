@@ -7,10 +7,10 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 3 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s input-date-time in-format [out-format]\n", argv[0]);
+        usage_err("%s input-date-time in-format [out-format]\n", argv[0]);
     }
     if (setlocale(LC_ALL, "") == NULL) {
-        errExit("setlocale");
+        err_exit("setlocale");
     }
 
     struct tm tm;

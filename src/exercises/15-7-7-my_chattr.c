@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     if (argc < 3 || strcmp(argv[1], "--help") == 0 ||
         (argv[1][0] != '+' && argv[1][0] != '-'))
     {
-        usageErr("%s [+-][acDijAdtsSTu] filename", argv[0]);
+        usage_err("%s [+-][acDijAdtsSTu] filename", argv[0]);
     }
 
     int opt = 1;
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
             case 'S': attr |= FS_SYNC_FL; break;
             case 'T': attr |= FS_TOPDIR_FL; break;
             case 'u': attr |= FS_UNRM_FL; break;
-            case '?': usageErr("%s [+-][acDijAdtsSTu] filename", argv[0]); break;
+            case '?': usage_err("%s [+-][acDijAdtsSTu] filename", argv[0]); break;
             default: break;
         }
         ++opt;
@@ -37,12 +37,12 @@ int main(int argc, char* argv[]) {
     for (int index = 2; index < argc; ++index) {
         int fd;
         if ((fd = open(argv[index], O_RDONLY)) == -1) {
-            errExit("open");
+            err_exit("open");
         }
         int getAttr;
         // 读取 i 节点表示
         if (ioctl(fd, FS_IOC_GETFLAGS, &getAttr) == -1) {
-            errExit("ioctl");
+            err_exit("ioctl");
         }
         if (argv[1][0] == '-') {
             attr = getAttr & (~attr);
@@ -51,11 +51,11 @@ int main(int argc, char* argv[]) {
             attr |= getAttr;
         }
         else {
-            usageErr("%s [+-][acDijAdtsSTu] filename", argv[0]);
+            usage_err("%s [+-][acDijAdtsSTu] filename", argv[0]);
         }
         // 设置 i 节点表示
         if (ioctl(fd, FS_IOC_SETFLAGS, &attr) == -1) {
-            errExit("ioctl");
+            err_exit("ioctl");
         }
     }
 }

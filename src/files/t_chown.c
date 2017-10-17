@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 3 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s owner group [file...]\n"
+        usage_err("%s owner group [file...]\n"
         "   owner or goup can be '-',"
         "meaning leave unchaged\n", argv[0]);
     }
@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
         uid = -1;
     }
     else {
-        uid = userIdFromName(argv[1]);
+        uid = user_id_from_name(argv[1]);
         if (uid == -1) {
             fatal("No such user (%s)", argv[1]);
         }
@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
         gid = -1;
     }
     else {
-        gid = groupIdFromName(argv[2]);
+        gid = group_id_from_name(argv[2]);
         if (gid == -1) {
             fatal("No such group user (%s)", argv[1]);
         }
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     Boolean errFnd = FALSE;
     for (int j = 3; j != argc; ++j) {
         if (chown(argv[j], uid, gid) == -1) {
-            errMsg("chown: %s", argv[j]);
+            err_msg("chown: %s", argv[j]);
             errFnd = TRUE;
         }
     }

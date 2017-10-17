@@ -7,23 +7,23 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 2 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s temp-file [num-1kb-blokcs] \n", argv[0]);
+        usage_err("%s temp-file [num-1kb-blokcs] \n", argv[0]);
     }
 
-    int num_blocks = (argc > 2) ? getInt(argv[2], GN_GT_0, "num-1kb-blokcs") : 100000;
+    int num_blocks = (argc > 2) ? get_int(argv[2], GN_GT_0, "num-1kb-blokcs") : 100000;
     int fd = open(argv[1], O_WRONLY | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR);
     if (fd == -1) {
-        errExit("open");
+        err_exit("open");
     }
 
     if (unlink(argv[1]) == -1) {
-        errExit("unlink");
+        err_exit("unlink");
     }
 
     char buf[BUF_SIZE];
     for (int j = 0; j != num_blocks; ++j) {
         if (write(fd, buf, BUF_SIZE) != BUF_SIZE) {
-            errExit("partial/failed write");
+            err_exit("partial/failed write");
         }
     }
 
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     system(shell_cmd);
 
     if (close(fd) == -1) {
-        errExit("close");
+        err_exit("close");
     }
     printf("************ Close file descriptor\n");
 

@@ -5,7 +5,7 @@ static void list_files(const char* dir_path) {
     Boolean is_current = strcmp(dir_path, ".") == 0;
     DIR* dirp = opendir(dir_path);
     if (dirp == NULL) {
-        errMsg("opendir failed on '%s'", dir_path);
+        err_msg("opendir failed on '%s'", dir_path);
         return;
     }
 
@@ -29,16 +29,16 @@ static void list_files(const char* dir_path) {
     }
 
     if (errno != 0) {
-        errExit("readdir");
+        err_exit("readdir");
     }
     if (closedir(dirp) == -1) {
-        errMsg("closedir");
+        err_msg("closedir");
     }
 }
 
 int main(int argc, char* argv[]) {
     if (argc > 1 && strcmp(argv[1], "--help") == 0) {
-        usageErr("%s [dir...]\n", argv[0]);
+        usage_err("%s [dir...]\n", argv[0]);
     }
 
     if (argc == 1) {

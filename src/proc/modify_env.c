@@ -11,12 +11,12 @@ int main(int argc, char* argv[]) {
     clearenv(); // 相当于 environ = NULL，会有一点内存泄漏
     for (j = 1; j != argc; ++j) {
         if (putenv(argv[j]) != 0) {
-            errExit("putenv: %s", argv[j]);
+            err_exit("putenv: %s", argv[j]);
         }
     }
 
     if (setenv("GREET", "Hello world", 0) == -1) {
-        errExit("setenv");
+        err_exit("setenv");
     }
     unsetenv("BYE");
 

@@ -12,24 +12,24 @@ int main(int argc, char* argv[]) {
 
     struct timeval tv;
     if (gettimeofday(&tv, NULL) == -1) {
-        errExit("gettimeofday");
+        err_exit("gettimeofday");
     }
     printf(" gettimeofday() return %ld sec, %ld microsecs\n", (long) tv.tv_sec, (long) tv.tv_usec);
 
-    struct tm* gmPtr = gmtime(&t);
-    if (gmPtr == NULL) {
-        errExit("gmtime");
+    struct tm* gm_ptr = gmtime(&t);
+    if (gm_ptr == NULL) {
+        err_exit("gmtime");
     }
-    struct tm gm = *gmPtr;
+    struct tm gm = *gm_ptr;
     printf("Broken down by gmtime():\n");
     printf(" year=%d mon=%d mday=%d hour=%d min=%d sec=%d ", gm.tm_year, gm.tm_mon, gm.tm_mday, gm.tm_hour, gm.tm_min, gm.tm_sec);
     printf("wday=%d yday=%d isdst=%d\n", gm.tm_wday, gm.tm_yday, gm.tm_isdst);
 
-    struct tm* locPtr = localtime(&t);
-    if (locPtr == NULL) {
-        errExit("localtime");
+    struct tm* loc_ptr = localtime(&t);
+    if (loc_ptr == NULL) {
+        err_exit("localtime");
     }
-    struct tm loc = *locPtr;
+    struct tm loc = *loc_ptr;
     printf("Broken down by localtime():\n");
     printf(" year=%d mon=%d mday=%d hour=%d min=%d sec=%d ", loc.tm_year, loc.tm_mon, loc.tm_mday, loc.tm_hour, loc.tm_min, loc.tm_sec);
     printf("wday=%d yday=%d isdst=%d\n", loc.tm_wday, loc.tm_yday, loc.tm_isdst);

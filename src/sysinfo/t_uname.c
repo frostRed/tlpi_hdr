@@ -5,7 +5,7 @@
 int main() {
     struct utsname uts;
     if (uname(&uts) == -1) {
-        errExit("uname");
+        err_exit("uname");
     }
 
     printf("Node name:  %s\n", uts.nodename);

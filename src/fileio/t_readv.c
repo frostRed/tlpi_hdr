@@ -7,44 +7,44 @@ int main(int argc, char* argv[]) {
     int fd;
     struct iovec iov[3];
 
-    struct stat myStruct;
+    struct stat st;
     int x;
     #define STR_SIZE 100
     char str[STR_SIZE];
 
-    ssize_t numRead, toRequired;
+    ssize_t num_read, to_required;
 
     if (argc != 2 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s, file\n", argv[0]);
+        usage_err("%s, file\n", argv[0]);
     }
 
     fd = open(argv[1], O_RDONLY);
     if (fd == -1) {
-        errExit("open");
+        err_exit("open");
     }
 
-    toRequired = 0;
-    iov[0].iov_base = &myStruct;
-    iov[0].iov_len = sizeof(myStruct);
-    toRequired += iov[0].iov_len;
+    to_required = 0;
+    iov[0].iov_base = &st;
+    iov[0].iov_len = sizeof(st);
+    to_required += iov[0].iov_len;
 
     iov[1].iov_base = &x;
     iov[1].iov_len = sizeof(x);
-    toRequired += iov[1].iov_len;
+    to_required += iov[1].iov_len;
 
     iov[2].iov_base = str;
     iov[2].iov_len = STR_SIZE;
-    toRequired += iov[2].iov_len;
+    to_required += iov[2].iov_len;
     
-    numRead = readv(fd, iov, 3);
-    if (numRead == -1) {
-        errExit("redv");
+    num_read = readv(fd, iov, 3);
+    if (num_read == -1) {
+        err_exit("redv");
     }
-    if (numRead < toRequired) {
+    if (num_read < to_required) {
         printf("Read fewer bytes than requested\n");
     }
 
-    printf("total bytes requested: %ld; bytes read: %ld\n", (long) toRequired, (long) numRead);
+    printf("total bytes requested: %ld; bytes read: %ld\n", (long) to_required, (long) num_read);
 
     exit(EXIT_SUCCESS);
 }

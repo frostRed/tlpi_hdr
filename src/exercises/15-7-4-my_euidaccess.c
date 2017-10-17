@@ -6,7 +6,7 @@ int my_euidaccess(const char* pathname, int mode);
 
 int main(int argc, char* argv[]) {
     if (argc <=1 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s filename", argv[0]);
+        usage_err("%s filename", argv[0]);
     }
     int result = my_euidaccess(argv[1], R_OK);
     // printf("%d\n", result);

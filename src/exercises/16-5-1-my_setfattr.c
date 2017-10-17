@@ -14,21 +14,21 @@ int main(int argc, char* argv[]) {
                 break;
             case 'v': attr_value = optarg;
                 break;
-            case ':': usageErr("%s Missing argumment,\
+            case ':': usage_err("%s Missing argumment,\
                 Usage: %s [-p pathname] [-n attrname] [-v attrvalue]",
                 argv[0], argv[0]);
                 break;
-            case '?': usageErr("%s Unrecognized option,\
+            case '?': usage_err("%s Unrecognized option,\
                 Usage: %s [-p pathname] [-n attrname] [-v attrvalue]",
                 argv[0], argv[0]);
                 break;
-            default: usageErr("%s [-p pathname] [-n attrname] [-v attrvalue]",
+            default: usage_err("%s [-p pathname] [-n attrname] [-v attrvalue]",
                 argv[0]);
                 break;
         }
     }
     if (setxattr(path_name, attr_name, attr_value, strlen(attr_value), 0) == -1) {
-        errExit("setxattr");
+        err_exit("setxattr");
     }
     return 0;
 }

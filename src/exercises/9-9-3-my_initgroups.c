@@ -17,22 +17,22 @@ int main() {
     int i = 10;
     char user[128];
     if (fgets(user, 128, stdin) == -1) {
-        errExit("fgets");
+        err_exit("fgets");
     }
     user[strlen(user) - 1] = '\0';
 
     gid_t gid;
-    if ((gid = groupIdFromName(user)) == -1) {
-        errExit("groupIdFromName");
+    if ((gid = group_id_from_name(user)) == -1) {
+        err_exit("group_id_from_name");
     }
     if (my_initgroups(user, gid) == -1) {
-        errExit("my_initgroups");
+        err_exit("my_initgroups");
     }
 
     long grouplist_max = sysconf(_SC_NGROUPS_MAX);
     gid_t grouplist[grouplist_max + 1];
     if (getgroups(grouplist_max, grouplist) == -1) {
-        errExit("getgroups");
+        err_exit("getgroups");
     }
     Boolean has_0 = FALSE;
     for (int i = 0; i != grouplist_max; ++i) {

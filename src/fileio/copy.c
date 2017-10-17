@@ -7,44 +7,44 @@
 #endif
 
 int main(int argc, char* argv[]) {
-    int inputFd, outputFd, openFlags;
-    mode_t filePerms;
-    ssize_t numRead;
+    int input_fd, output_fd, open_flags;
+    mode_t file_perms;
+    ssize_t num_read;
     char buf[BUF_SIZE];
 
     if (argc != 3 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s old-file new-file\n", argv[0]);
+        usage_err("%s old-file new-file\n", argv[0]);
     }
 
-    inputFd = open(argv[1], O_RDONLY);
-    if (inputFd == -1) {
-        errExit("opening file %s", argv[1]);
+    input_fd = open(argv[1], O_RDONLY);
+    if (input_fd == -1) {
+        err_exit("opening file %s", argv[1]);
     }
 
-    openFlags = O_CREAT | O_WRONLY | O_TRUNC;
+    open_flags = O_CREAT | O_WRONLY | O_TRUNC;
     // rw-rw-rw，分别为用户、群组、其他人
-    filePerms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
+    file_perms = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP |
                 S_IROTH | S_IWOTH;
 
-    outputFd = open(argv[2], openFlags, filePerms);
-    if (outputFd == -1) {
-        errExit("opening file %s", argv[2]);
+    output_fd = open(argv[2], open_flags, file_perms);
+    if (output_fd == -1) {
+        err_exit("opening file %s", argv[2]);
     }
 
-    while ((numRead = read(inputFd, buf, BUF_SIZE)) > 0) {
-        if (write(outputFd, buf, numRead) != numRead) {
+    while ((num_read = read(input_fd, buf, BUF_SIZE)) > 0) {
+        if (write(output_fd, buf, num_read) != num_read) {
             fatal("couldn't write whole buffer");
         }
     }
-    if (numRead == -1) {
-        errExit("read");
+    if (num_read == -1) {
+        err_exit("read");
     }
 
-    if (close(inputFd) == -1) {
-        errExit("close input");
+    if (close(input_fd) == -1) {
+        err_exit("close input");
     }
-    if (close(outputFd) == -1) {
-        errExit("close output");
+    if (close(output_fd) == -1) {
+        err_exit("close output");
     }
     exit(EXIT_SUCCESS);
 }

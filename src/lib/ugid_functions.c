@@ -5,12 +5,12 @@
 #include <stdlib.h> // strtol
 #include "ugid_functions.h"
 
-char* userNameFromId(uid_t uid) {
+char* user_name_from_id(uid_t uid) {
     struct passwd* pwd = getpwuid(uid);
     return pwd == NULL ? NULL : pwd->pw_name;
 }
 
-uid_t userIdFromName(const char* name) {
+uid_t user_id_from_name(const char* name) {
     if (name == NULL || *name == '\0') {
         return -1;
     }
@@ -30,12 +30,12 @@ uid_t userIdFromName(const char* name) {
     return pwd->pw_uid;
 }
 
-char* groupNameFromId(gid_t gid) {
+char* group_name_from_id(gid_t gid) {
     struct group *grp = getgrgid(gid);
     return grp == NULL ? NULL : grp->gr_name;
 }
 
-gid_t groupIdFromName(const char* name) {
+gid_t group_id_from_name(const char* name) {
     if (name == NULL || *name == '\0') {
         return -1;
     }

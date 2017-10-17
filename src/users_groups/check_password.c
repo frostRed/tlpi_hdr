@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 
     char* username = malloc(lnmax);
     if (username == NULL) {
-        errExit("malloc");
+        err_exit("malloc");
     }
     printf("Username: ");
     fflush(stdout);
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
 
     // 对比验证
     if (encrypted == NULL) {
-        errExit("crypt");
+        err_exit("crypt");
     }
     Boolean authOk = strcmp(encrypted, pwd->pw_passwd) == 0;
     if (!authOk) {

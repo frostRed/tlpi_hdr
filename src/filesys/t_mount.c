@@ -2,7 +2,7 @@
 
 #include "tlpi_hdr.h"
 
-static void usageError(const char* progName, const char* msg) {
+static void usage_error(const char* progName, const char* msg) {
     if (msg != NULL) {
         fprintf(stderr, "%s", msg);
     }
@@ -62,22 +62,22 @@ int main(int argc, char* argv[]) {
                         case 'c': flags |= MS_REC; break;
                         case 'R': flags |= MS_REMOUNT; break;
                         case 's': flags |= MS_SYNCHRONOUS; break;
-                        default: usageError(argv[0], NULL);
+                        default: usage_error(argv[0], NULL);
                     }
                 }
                 break;
 
             default:
-                usageError(argv[0], NULL);
+                usage_error(argv[0], NULL);
         }
     }
 
     if (argc != optind + 2) {
-        usageError(argv[0], "Wrong number of arguments\n");
+        usage_error(argv[0], "Wrong number of arguments\n");
     }
     // argv 中最后两项是 source 和 target
     if (mount(argv[optind], argv[optind + 1], fstype, flags, data) == -1) {
-        errExit("mount");
+        err_exit("mount");
     }
     return 0;
 }

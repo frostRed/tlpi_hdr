@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
     //setenv("TZ", "Pacific/Auckland", 1);
 
     if (setlocale(LC_ALL, "") == NULL) {
-        errExit("setlocale");
+        err_exit("setlocale");
     }
 
     time_t t = time(NULL);
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
     struct tm* loc = localtime(&t);
     if (loc == NULL) {
-        errExit("localtime");
+        err_exit("localtime");
     }
     printf("asctime() of local time is    %s", asctime(loc));
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char gloBuff[65535];
+char glo_buff[65535];
 int primes[] = {2, 3, 5, 7};
 
 static int square(int x) {
@@ -10,7 +10,7 @@ static int square(int x) {
     return result;
 }
 
-static void doCalc(int val) {
+static void do_calc(int val) {
     printf("The square of %d is %d\n", val, square(val));
     if (val < 1000) {
         int t;
@@ -24,8 +24,8 @@ int main(int argc, char* argv[]) {
     static char mbuf[10240000];
     char *p;
     p = malloc(1024);
-    doCalc(key);
-    printf("gloBuf: %p \t primes: %p \t square: %p \t doCalc: %p\n", gloBuff, primes, square, doCalc);
+    do_calc(key);
+    printf("gloBuf: %p \t primes: %p \t square: %p \t do_calc: %p\n", glo_buff, primes, square, do_calc);
     printf("key: %p \t mbuf: %p \t p: %p\n", &key, mbuf, p);
     exit(EXIT_SUCCESS);
 }

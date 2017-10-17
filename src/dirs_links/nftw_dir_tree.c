@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (nftw(argc > optind ? argv[optind] : ".", dir_tree, 10, flags) == -1) {
-        errExit("nftw");
+        err_exit("nftw");
     }
     exit(EXIT_SUCCESS);
 }

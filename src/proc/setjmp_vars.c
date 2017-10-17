@@ -4,8 +4,8 @@
 
 static jmp_buf env;
 
-static void doJump(int nvar, int rvar, int vvar) {
-    printf("Inside doJump(): nvar=%d rvar=%d vvar=%d\n", nvar, rvar, vvar);
+static void do_jump(int nvar, int rvar, int vvar) {
+    printf("Inside do_jump(): nvar=%d rvar=%d vvar=%d\n", nvar, rvar, vvar);
     longjmp(env, 1);
 }
 
@@ -22,10 +22,10 @@ int main(int argc, char* argv[]) {
         nvar = 777;
         rvar = 888;
         vvar = 999;
-        doJump(nvar, rvar, vvar);
+        do_jump(nvar, rvar, vvar);
     }
     else {
-        printf("After doJump(): nvar=%d rvar=%d vvar=%d\n", nvar, rvar, vvar);
+        printf("After do_jump(): nvar=%d rvar=%d vvar=%d\n", nvar, rvar, vvar);
     }
     exit(EXIT_SUCCESS);
 }

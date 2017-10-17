@@ -6,14 +6,14 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 2 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s filename\n", argv[0]);
+        usage_err("%s filename\n", argv[0]);
     }
     int fd = open(argv[1], O_RDONLY | O_CREAT, S_IRUSR | S_IWUSR);
     if (fd == -1) {
-        errExit("open");
+        err_exit("open");
     }
     if (lseek(fd, 10, SEEK_CUR) == -1) {
-        errExit("lseek");
+        err_exit("lseek");
     }
     
     int newfd = dup(fd);

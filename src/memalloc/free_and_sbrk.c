@@ -8,22 +8,22 @@ int main(int argc, char* argv[]) {
 
     printf("\n");
     if (argc < 3 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s num-allocs block-size [step [min [max]]]\n", argv[0]);
+        usage_err("%s num-allocs block-size [step [min [max]]]\n", argv[0]);
     }
 
-    numAllocs = getInt(argv[1], GN_GT_0, "num-allocs");
+    numAllocs = get_int(argv[1], GN_GT_0, "num-allocs");
     if (numAllocs > MAX_ALLOCS) {
-        cmdLineErr("num-allocs > %d\n", MAX_ALLOCS);
+        cmd_line_err("num-allocs > %d\n", MAX_ALLOCS);
     }
 
-    blockSize = getInt(argv[2], GN_GT_0 | GN_ANY_BASE, "block-size");
+    blockSize = get_int(argv[2], GN_GT_0 | GN_ANY_BASE, "block-size");
 
-    freeStep = (argc > 3) ? getInt(argv[3], GN_GT_0, "step") : 1;
-    freeMin = (argc > 4) ? getInt(argv[4], GN_GT_0, "min") : 1;
-    freeMax = (argc > 5) ? getInt(argv[5], GN_GT_0, "max") : numAllocs;
+    freeStep = (argc > 3) ? get_int(argv[3], GN_GT_0, "step") : 1;
+    freeMin = (argc > 4) ? get_int(argv[4], GN_GT_0, "min") : 1;
+    freeMax = (argc > 5) ? get_int(argv[5], GN_GT_0, "max") : numAllocs;
 
     if (freeMax > numAllocs) {
-        cmdLineErr("free-max > num-allocs\n");
+        cmd_line_err("free-max > num-allocs\n");
     }
 
     printf("Initial program break:         %10p\n", sbrk(0));
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     for (j = 0; j != numAllocs; ++j) {
         ptr[j] = malloc(blockSize);
         if (ptr[j] == NULL) {
-            errExit("malloc");
+            err_exit("malloc");
         }
     }
 

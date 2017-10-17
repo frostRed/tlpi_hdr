@@ -7,22 +7,22 @@
 // 但是，对于读来说，O_APPEND就不起作用了
 int main(int argc, char* argv[]) {
     if (argc < 2 || strcmp(argv[1], "--help") == 0) {
-        usageErr("%s filename\n", argv[0]);
+        usage_err("%s filename\n", argv[0]);
     }
 
     int fd;
     fd = open(argv[1], O_WRONLY | O_CREAT | O_APPEND);
     if (fd == -1) {
-        errExit("open");
+        err_exit("open");
     }
     if (lseek(fd, 0, SEEK_SET) == -1) {
-        errExit("lseek");
+        err_exit("lseek");
     }
     if (write(fd, "test", 4) == -1) {
-        errExit("write");
+        err_exit("write");
     }
     if(close(fd) == -1) {
-        errExit("close");
+        err_exit("close");
     }
 
     exit(EXIT_SUCCESS);

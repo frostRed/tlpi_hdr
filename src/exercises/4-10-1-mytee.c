@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     size_t len;
     int fd = -2;
     char buf[BUF_SIZE];
-    ssize_t numRead, numWritten;
+    ssize_t num_read, num_written;
 
     int openFlags = O_RDWR | O_CREAT | O_TRUNC;
     int opt;
@@ -21,10 +21,10 @@ int main(int argc, char* argv[]) {
                 openFlags = O_RDWR | O_CREAT | O_APPEND;
                 break;
             case ':':
-                cmdLineErr("Option -%c miss argument", optopt);
+                cmd_line_err("Option -%c miss argument", optopt);
                 break;
             case '?':
-                cmdLineErr("-%c is unrecognized option", optopt);
+                cmd_line_err("-%c is unrecognized option", optopt);
                 break;
             default:
                 fatal("Unexpected case in switch()");
@@ -34,17 +34,17 @@ int main(int argc, char* argv[]) {
     fd = open(argv[optind], openFlags, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 
     if (fd == -1) {
-        errExit("open");
+        err_exit("open");
     }
 
-    while ((numRead = read(STDIN_FILENO, buf, BUF_SIZE)) != -1) {
-        if ((numWritten = write(fd, buf, numRead)) != numRead) {
-            errExit("write");
+    while ((num_read = read(STDIN_FILENO, buf, BUF_SIZE)) != -1) {
+        if ((num_written = write(fd, buf, num_read)) != num_read) {
+            err_exit("write");
         }
     }
 
     if (close(fd) == -1) {
-        errExit("close output");
+        err_exit("close output");
     }
 
     exit(EXIT_SUCCESS);
