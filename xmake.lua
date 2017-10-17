@@ -265,3 +265,28 @@ target("xattr_view")
     set_kind("binary")
     add_files("src/xattr/xattr_view.c")
     add_deps("tlpi_hdr")
+
+target("16-5-1-my_setfattr")
+    set_kind("binary")
+    add_files("src/exercises/16-5-1-my_setfattr.c")
+    add_deps("tlpi_hdr")
+
+target("t_unlink")
+    set_kind("binary")
+    add_files("src/dirs_links/t_unlink.c")
+    add_deps("tlpi_hdr")
+
+target("list_files")
+    set_kind("binary")
+    add_files("src/dirs_links/list_files.c")
+    add_deps("tlpi_hdr")
+
+target("nftw_dir_tree")
+    set_kind("binary")
+    add_files("src/dirs_links/nftw_dir_tree.c")
+    add_deps("tlpi_hdr")
+
+target("view_symlink")
+    set_kind("binary")
+    add_files("src/dirs_links/view_symlink.c")
+    add_deps("tlpi_hdr")
